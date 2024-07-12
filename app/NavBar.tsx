@@ -13,6 +13,9 @@ const NavBar = () => {
             <Link href="/crypto" className="mr-5">
                 Cryptocurrencies
             </Link>
+            <Link href="/" className="mr-5">
+                TBD
+            </Link>
         </div>
     );
 };
