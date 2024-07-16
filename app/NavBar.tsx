@@ -13,6 +13,12 @@ const NavBar = () => {
             <Link href="/crypto" className="mr-5">
                 Cryptocurrencies
             </Link>
+            <Link href="/crypto2" className="mr-5">
+                Crypto2
+            </Link>
+            <Link href="/coinlist" className="mr-5">
+                Coin List
+            </Link>
             <Link href="/" className="mr-5">
                 TBD
             </Link>

@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 import { sort } from "fast-sort";
 import DynamicTableHeader from "../components/dynamicTableHeader/DynamicTableHeader";
 
@@ -16,7 +15,10 @@ interface Props {
     sortDirection: string;
 }
 
-const UserTable = async ({ sortOrder='name', sortDirection='asc' }: Props) => {
+const UserTable = async ({
+    sortOrder = "name",
+    sortDirection = "asc",
+}: Props) => {
     const res = await fetch("https://jsonplaceholder.typicode.com/users");
     let users: User[] = await res.json();
     users
