@@ -7,7 +7,7 @@ export const GET = (
 ) => {
     if (params.id > 10)
         return NextResponse.json({ error: "User not found" }, { status: 404 });
-    return NextResponse.json({ name: "Mosh", id: 1 });
+    return NextResponse.json({ name: "Bread", id: 1 });
 };
 
 export const PUT = async (
@@ -33,7 +33,7 @@ export const PUT = async (
      * Return updated user
      */
 
-    return NextResponse.json({ id: 1, name: body.name });
+    return NextResponse.json({ id: 1, name: body.name, price: body.price });
 };
 
 export const DELETE = (

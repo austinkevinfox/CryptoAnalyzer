@@ -23,7 +23,7 @@ const CryptoPage = async ({
             : sort(tokenData).asc((token) => token[sortOrder as keyof Token]);
     return (
         <>
-            <h1>Top 10 Tokens</h1>
+            <h1>Top 10 Tokens from Exchange 1</h1>
             <Suspense fallback={<p>Loading...</p>}>
                 <table className="table table-bordered">
                     <DynamicTableHeader
