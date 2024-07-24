@@ -19,7 +19,10 @@ const UserTable = async ({
     sortOrder = "name",
     sortDirection = "asc",
 }: Props) => {
-    const res = await fetch("https://jsonplaceholder.typicode.com/users");
+    // const res = await fetch("https://jsonplaceholder.typicode.com/users");
+    const res = await fetch("http://localhost:3000/api/users", {
+        cache: "no-store",
+    });
     let users: User[] = await res.json();
     users
         .filter((u) => u.name.split(" ").length === 2)

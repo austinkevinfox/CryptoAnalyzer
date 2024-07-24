@@ -1,18 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
 import schema from "../schema";
+import prisma from "@/prisma/client";
 
-export const GET = (
+export const GET = async (
     request: NextRequest,
-    { params }: { params: { id: number } }
+    { params }: { params: { id: string } }
 ) => {
-    if (params.id > 10)
-        return NextResponse.json({ error: "User not found" }, { status: 404 });
-    return NextResponse.json({ name: "Bread", id: 1 });
+    const product = await prisma.product.findUnique({
+        where: { id: parseInt(params.id) },
+    });
+    if (!product)
+        return NextResponse.json(
+            { error: "Product not found" },
+            { status: 404 }
+        );
+
+    return NextResponse.json(product);
 };
 
 export const PUT = async (
     request: NextRequest,
-    { params }: { params: { id: number } }
+    { params }: { params: { id: string } }
 ) => {
     /* Validate request body
      * If invalid, return 400
@@ -22,25 +30,45 @@ export const PUT = async (
     if (!validation.success)
         return NextResponse.json(validation.error.errors, { status: 400 });
 
-    /* Fetch user with given id
-     * If user does not exit, return 404
+    /* Fetch product with given id
+     * If product does not exit, return 404
+     */
+    const product = await prisma.product.findUnique({
+        where: { id: parseInt(params.id) },
+    });
+
+    if (!product)
+        return NextResponse.json(
+            { error: "Product not found" },
+            { status: 404 }
+        );
+
+    /* Update the product
+     * Return updated product
      */
 
-    if (params.id > 10)
-        return NextResponse.json({ error: "User not found" }, { status: 404 });
+    const updatedProduct = await prisma.product.update({
+        where: { id: product.id },
+        data: { name: body.name, price: body.price },
+    });
 
-    /* Update the user
-     * Return updated user
-     */
-
-    return NextResponse.json({ id: 1, name: body.name, price: body.price });
+    return NextResponse.json(updatedProduct);
 };
 
-export const DELETE = (
+export const DELETE = async (
     request: NextRequest,
-    { params }: { params: { id: number } }
+    { params }: { params: { id: string } }
 ) => {
-    if (params.id > 10)
-        return NextResponse.json({ error: "User not found" }, { status: 404 });
+    const product = await prisma.product.findUnique({
+        where: { id: parseInt(params.id) },
+    });
+
+    if (!product)
+        return NextResponse.json(
+            { error: "Product not found" },
+            { status: 404 }
+        );
+
+    await prisma.product.delete({ where: { id: product.id } });
     return NextResponse.json({});
 };
